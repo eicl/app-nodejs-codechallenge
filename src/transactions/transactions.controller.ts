@@ -11,9 +11,9 @@ export class TransactionsController {
     return this.service.createTransaction(dto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.service.getTransactionById(id);
+  @Get(':transactionExternalId')
+  findOne(@Param('transactionExternalId') transactionExternalId: string) {
+    return this.service.findOne(transactionExternalId);
   }
 }
 

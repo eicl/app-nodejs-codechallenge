@@ -1,4 +1,4 @@
-import { IsUUID, IsNumber, IsInt } from 'class-validator';
+import { IsUUID, IsNumber, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class CreateTransactionDto {
   @IsUUID()
@@ -12,4 +12,8 @@ export class CreateTransactionDto {
 
   @IsNumber()
   value: number;
+
+  @IsOptional()
+  @IsString()
+  transactionExternalId?: string;
 }

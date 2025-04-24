@@ -1,12 +1,22 @@
 import { Module } from '@nestjs/common';
-import { TransactionsService } from './transactions/transactions.service';
-import { TransactionsController } from './transactions/transactions.controller';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+
+import { TransactionsModule } from './transactions/transactions.module';
 import { KafkaService } from './kafka/kafka.service';
 import { KafkaConsumer } from './kafka/kafka.consumer';
 
 @Module({
-  imports: [],
-  controllers: [TransactionsController],
-  providers: [TransactionsService, KafkaService, KafkaConsumer],
+  imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground:true,
+      path: '/graphql',
+    }),
+    TransactionsModule,
+  ],
+  providers: [KafkaService, KafkaConsumer],
 })
 export class AppModule {}

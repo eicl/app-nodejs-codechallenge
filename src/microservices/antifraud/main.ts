@@ -16,10 +16,10 @@ async function run() {
 
       await producer.send({
         topic: 'update_transaction_status',
-        messages: [{ value: JSON.stringify({ id: data.id, status }) }],
+        messages: [{ value: JSON.stringify({ transactionExternalId: data.transactionExternalId, status }) }],
       });
 
-      console.log(`Anti-fraude procesó: ${data.id} → ${status}`);
+      console.log(`Anti-fraude procesó: ${data.transactionExternalId} → ${status}`);
     },
   });
 }

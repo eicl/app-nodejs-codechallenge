@@ -16,7 +16,7 @@ export class KafkaConsumer implements OnModuleInit {
       eachMessage: async ({ message }) => {
         const data = JSON.parse((message.value+ '').toString());
         await prisma.transaction.update({
-          where: { id: data.id },
+          where: { transactionExternalId: data.transactionExternalId },
           data: { status: data.status },
         });
         console.log(`Transacción ${data.id} actualizada a ${data.status}`);
